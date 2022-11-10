@@ -1,0 +1,2 @@
+Para atender a nova categoria será necessário alterar a classe TRADE que implementa a interface ITRADE, em três pontos, o primeiro acrescentar a nova propriedade IsPoliticalExposed, criada na interface. O segundo, ajustar o construtor da classe para receber mais um parâmetro, que é referente ao IsPoliticalExposed. O terceiro, alterar a função defineCategory para contemplar a nova categoria, aplicando a regra.
+Após isso, ajustar a função Input na classe Program, para contemplar a nova categoria na leitura dos dados.

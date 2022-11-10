@@ -1,0 +1,2 @@
+To new category is necessary modify the class TRADE, that implement the interface ITRADE, in three points, first add the new property IsPoliticalExposed, created in interface. Second, create in constructor of class a new parameter, that is IsPoliticalExposed. Third, modify the function defineCategory to process the new category using the rule.
+After this, modify the function Input in class Program, to read the new category, passed in line by user.
