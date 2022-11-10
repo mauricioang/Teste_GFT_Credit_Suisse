@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Teste_GFT_CreditSuisse/1.0.0": {
+        "runtime": {
+          "Teste_GFT_CreditSuisse.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Teste_GFT_CreditSuisse/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
