@@ -14,6 +14,15 @@ namespace Teste_GFT_CreditSuisse.DomainTrade
         //Question 2.
         //private readonly bool _IsPoliticallyExposed;
 
+        //Version 2, with overload of constructor.
+        public Trade()
+        {
+            _value = 0.0;
+            _clientSector = "";
+            _nextPayment = new DateTime(1900, 1, 1);
+            _referenceDate = new DateTime(1900, 1, 1);
+        }
+
         public Trade(double value, string clientSector, DateTime nextPayment, DateTime referenceDate /*,bool isPoliticallyExposed = false*/)
         {
             _value = value;

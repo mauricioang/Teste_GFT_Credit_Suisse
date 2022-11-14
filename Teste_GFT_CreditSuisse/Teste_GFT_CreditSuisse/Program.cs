@@ -10,40 +10,52 @@ namespace Teste_GFT_CreditSuisse
         {
             var lstTrades = new List<Trade>();
             string aux;
-            DateTime dateRef;
-            int nTrades;
+            DateTime dateRef = new DateTime(1900, 1, 1);
+            int nTrades = 0;
 
-            try
-            {
-                Console.Write("Report the reference date, in format (mm/dd/yyyy): ");
-                aux = Console.ReadLine();
+            //Clear the screen and start again.
+            Console.Clear();
 
-                var day = aux.Substring(3, 2);
-                var month = aux.Substring(0, 2);
-                var year = aux.Substring(6, 4);
+            bool parameterValid = false;
+            do
+            {
+                try
+                {
+                    Console.Write("Report the reference date, in format (mm/dd/yyyy): ");
+                    aux = Console.ReadLine();
 
-                dateRef = new DateTime(Convert.ToInt32(year), Convert.ToInt32(month), Convert.ToInt32(day));
-            }
-            catch
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("The reference date is invalid.");
-                Console.ReadKey();
-                return;
-            }
+                    var day = aux.Substring(3, 2);
+                    var month = aux.Substring(0, 2);
+                    var year = aux.Substring(6, 4);
 
-            try
+                    dateRef = new DateTime(Convert.ToInt32(year), Convert.ToInt32(month), Convert.ToInt32(day));
+                    parameterValid = true;
+                }
+                catch
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("The reference date is invalid.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+            } while (parameterValid == false);
+
+            parameterValid = false;
+            do
             {
-                Console.Write("Report the amount of trades: ");
-                nTrades = Convert.ToInt32(Console.ReadLine());
-            }
-            catch
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("The amount of trades invalid.");
-                Console.ReadKey();
-                return;
-            }
+                try
+                {
+                    Console.Write("Report the amount of trades: ");
+                    nTrades = Convert.ToInt32(Console.ReadLine());
+                    parameterValid = true;
+                }
+                catch
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("The amount of trades invalid.");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+
+            } while (parameterValid == false);
 
             //get Inputs
             input(dateRef, nTrades, ref lstTrades);
@@ -51,6 +63,7 @@ namespace Teste_GFT_CreditSuisse
             //print Output
             output(lstTrades);
 
+            Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
 
@@ -65,36 +78,42 @@ namespace Teste_GFT_CreditSuisse
 
             for (int i = 0; i < nTrades; i++)
             {
-                try
+                bool validateInput = false;
+                do
                 {
-                    Console.Write((i + 1).ToString() + "-");
-                    var auxTradeStart = Console.ReadLine();
-                    var auxTradeArray = auxTradeStart.Split(" ");
+                    try
+                    {
+                        Console.Write((i + 1).ToString() + "-");
+                        var auxTradeStart = Console.ReadLine();
+                        var auxTradeArray = auxTradeStart.Split(" ");
 
-                    var dayTrade = auxTradeArray[2].Trim().Substring(3, 2);
-                    var monthTrade = auxTradeArray[2].Trim().Substring(0, 2);
-                    var yearTrade = auxTradeArray[2].Trim().Substring(6, 4);
-                    DateTime nextPayment = new DateTime(Convert.ToInt32(yearTrade), Convert.ToInt32(monthTrade), Convert.ToInt32(dayTrade));
+                        var dayTrade = auxTradeArray[2].Trim().Substring(3, 2);
+                        var monthTrade = auxTradeArray[2].Trim().Substring(0, 2);
+                        var yearTrade = auxTradeArray[2].Trim().Substring(6, 4);
+                        DateTime nextPayment = new DateTime(Convert.ToInt32(yearTrade), Convert.ToInt32(monthTrade), Convert.ToInt32(dayTrade));
 
-                    //Question 2
-                    //var IsPoliticallyExposed = Convert.ToBoolean(auxTradeArray[3].Trim());
+                        //Question 2
+                        //var IsPoliticallyExposed = Convert.ToBoolean(auxTradeArray[3].Trim());
 
-                    var trade = new Trade(
-                                          Convert.ToDouble(auxTradeArray[0].Trim()),
-                                          auxTradeArray[1].Trim(),
-                                          nextPayment,
-                                          dateRef /*,IsPoliticallyExposed*/
-                                          );
+                        var trade = new Trade(
+                                              Convert.ToDouble(auxTradeArray[0].Trim()),
+                                              auxTradeArray[1].Trim(),
+                                              nextPayment,
+                                              dateRef /*,IsPoliticallyExposed*/
+                                              );
 
-                    trades.Add(trade);
-                }
-                catch
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("This trade has a invalid information.");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("");
-                }
+                        trades.Add(trade);
+                        validateInput = true;
+                    }
+                    catch
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("This trade has a invalid information.");
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.WriteLine("");
+                    }
+
+                } while (validateInput == false);
             }
         }
 
@@ -113,11 +132,17 @@ namespace Teste_GFT_CreditSuisse
                     Console.WriteLine(item.category);
                     //Console.WriteLine("{0}, {1}, {2}, {3}", item.Value, item.ClientSector, item.NextPaymentDate.ToString("MM/dd/yyyy"), item.category);
                 }
+
+
+                Console.WriteLine(" ");
+                Console.WriteLine("Processing completed successfully.");
+                Console.WriteLine(" ");
             }
             else
             {
                 Console.WriteLine("The list is empty.");
             }
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
     }
 }
